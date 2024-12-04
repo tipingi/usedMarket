@@ -1,0 +1,13 @@
+<table>
+    <thead>
+        <tr><th>리뷰</th><th>작성일</th></tr>
+    </thead>
+    <tbody>
+        <% reviews.forEach(review => { %>
+            <tr>
+                <td><%= review.review_text %></td>
+                <td><%= review.created_at %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
