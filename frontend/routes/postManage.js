@@ -7,7 +7,7 @@ router.get("/",async(req,res)=>{
     const userId = 1; //현 사용자 id
     const query = "SELECT id,title,created_at,view FROM board_tbl WHERE user_id = ?";
     const [rows] = await db.query(query,[userId]);
-    res.render("postManage",{posts:rows});
+    res.render("postManage",{ posts:rows });
 });
 
 //게시글 삭제

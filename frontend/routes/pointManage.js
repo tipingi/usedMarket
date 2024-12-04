@@ -6,8 +6,8 @@ const db = require("../../db");
 router.get("/",async(req,res)=>{
     const userId = 1; //현 사용자 id
     const query = "SELECT points FROM user_tbl WHERE id = ?";
-    const [rows]=await db.query(query,[userId]);
-    res.render("pointManage",{points: rows[0].points});
+    const [rows] = await db.query(query,[userId]);
+    res.render("pointManage",{ points: rows[0].points });
 });
 
 //포인트 충전
