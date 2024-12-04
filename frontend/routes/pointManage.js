@@ -6,7 +6,7 @@ const db = require("../../db");
 router.get("/",async(req,res)=>{
     const userId = 1; //현 사용자 id
     const query = "SELECT points FROM user_tbl WHERE id = ?";
-    const [rows] = await db.query(query,[userId]);
+    const [rows] = await db.query(query, [userId]);
     res.render("pointManage",{ points: rows[0].points });
 });
 
@@ -15,7 +15,7 @@ router.post("/charge",async(req,res)=>{
     const {amount}=req.body; //충전할 포인트양
     const userId=1;
     const query = "UPDATE user_tbl SET points = points + ? WHERE id = ?";
-    await db.query(query, [amount,userId]);
+    await db.query(query, [amount, userId]);
     res.redirect("/myPage");
 });
 

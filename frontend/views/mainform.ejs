@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Form</title>
+    <link rel="stylesheet" href="/styles/main.css"> <!-- 스타일 적용을 위한 CSS 파일 -->
+</head>
+<body>
+    <!-- 상단 네비게이션 -->
+    <div class="nav">
+        <button id="myButton" onclick="handleMy()">마이</button>
+        <button id="messageButton" onclick="handleMessage()">쪽지</button>
+    </div>
+    
+    <!-- 게시판 영역 -->
+    <div class="board">
+        <h3>게시판</h3>
+        <a href="/board">더보기</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>유저 ID</th>
+                    <th>날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% boardPosts.forEach(post => { %>
+                    <tr>
+                        <td><%= post.title %></td>
+                        <td><%= post.user_id %></td>
+                        <td><%= post.created_at %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 조회수 높은 상품 -->
+    <div class="popular-product">
+        <h3>조회수 높은 상품</h3>
+        <% popularProducts.forEach(product => { %>
+            <div class="product">
+                <p>카테고리: <%= product.category_name %></p>
+                <p>상품명: <%= product.product_name %></p>
+                <p>조회수: <%= product.view_count %></p>
+            </div>
+        <% }) %>
+    </div>
+
+    <!-- 최근 거래된 상품 -->
+    <div class="recent-transactions">
+        <h3>최근 거래된 상품</h3>
+        <% recentTransactions.forEach(transaction => { %>
+            <div class="product">
+                <p>상품명: <%= transaction.product_name %></p>
+                <p>거래일: <%= transaction.transaction_at %></p>
+            </div>
+        <% }) %>
+    </div>
+
+    <!-- 방금 등록된 상품 -->
+    <div class="recent-products">
+        <h3>방금 등록된 상품</h3>
+        <% recentProducts.forEach(product => { %>
+            <div class="product">
+                <p>상품명: <%= product.product_name %></p>
+                <p>등록일: <%= product.created_at %></p>
+            </div>
+        <% }) %>
+    </div>
+
+    <script>
+        // 마이 버튼 클릭 핸들러
+        function handleMy() {
+            fetch('/auth/check-login') // 로그인 상태 확인 API
+                .then(res => res.json())
+                .then(data => {
+                    if (data.isLoggedIn) {
+                        window.location.href = '/my'; // 마이 페이지로 이동
+                    } else {
+                        window.location.href = '/login'; // 로그인 페이지로 이동
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+
+        // 쪽지 버튼 클릭 핸들러
+        function handleMessage() {
+            window.location.href = '/messages'; // 쪽지 페이지로 이동
+        }
+    </script>
+</body>
+</html>

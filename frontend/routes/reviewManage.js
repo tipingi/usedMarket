@@ -6,7 +6,7 @@ const db = require("../../db");
 router.get("/",async(req,res)=>{
     const userId = 1; //현 사용자 id
     const query = "SELECT id, review_text, created_at FROM review_tbl WHERE user_id = ?";
-    const [rows] = await db.query(query,[userId]);
+    const [rows] = await db.query(query, [userId]);
     res.render("reviewManage", {reviews:rows});
 });
 
